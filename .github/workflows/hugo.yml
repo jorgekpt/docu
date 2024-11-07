@@ -48,17 +48,19 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Install Node.js dependencies
         run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
-      - name: help
-        run: hugo help new
+      - name: Create site
+        run: hugo new site docu
+      - name: Create content
+        run: cd docu && hugo new content readme.md
       - name: Build with Hugo
         env:
           HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
           HUGO_ENVIRONMENT: production
         run: |
           hugo \
-            build --gc \
-            --minify \
-            --baseURL "${{ steps.pages.outputs.base_url }}/"
+             build --gc \
+             --minify \
+             --baseURL "${{ steps.pages.outputs.base_url }}/"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
