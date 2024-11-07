@@ -51,7 +51,7 @@ jobs:
       - name: Create site
         run: hugo new site test1
       - name: Install theme
-        run:  cd test1 && hugo new theme docsy --verbose
+        run:  cd test1 && hugo new theme docsy
       - name: Configure theme
         run:  git submodule add --depth=1 https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod && git submodule update --init --recursive
       - name: Create content
