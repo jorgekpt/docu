@@ -50,8 +50,12 @@ jobs:
         run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
       - name: Create site
         run: hugo new site test1
+      - name: Install theme
+        run:  cd test1 && hugo new theme docsy --verbose
+      - name: Configure theme
+        run:  git submodule add --depth=1 https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod && git submodule update --init --recursive
       - name: Create content
-        run: cd test1 && hugo new content readme.md
+        run:  hugo new content readme.md
       - name: Build with Hugo
         env:
           HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
