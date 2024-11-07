@@ -4,6 +4,8 @@ name: Deploy Hugo site to Pages
 on:
   # Runs on pushes targeting the default branch
   push:
+    paths:
+      - "website/**"
     branches: ["master"]
 
   # Allows you to run this workflow manually from the Actions tab
@@ -54,6 +56,7 @@ jobs:
           HUGO_ENVIRONMENT: production
         run: |
           hugo \
+            --source website \
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
       - name: Upload artifact
